@@ -1,0 +1,5 @@
+<iframe src="https://phet.colorado.edu/sims/cheerpj/faraday/latest/faraday.html?simulation=magnets-and-electromagnets"
+        width="800"
+        height="600"
+        allowfullscreen>
+</iframe>
