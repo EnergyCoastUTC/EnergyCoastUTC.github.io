@@ -1,0 +1,451 @@
+<!DOCTYPE html>
+<!-- saved from url=(0036)https://icesl.loria.fr/slicecrafter/ -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><style data-merge-styles="true"></style>
+    <style data-merge-styles="true"></style><style data-merge-styles="true"></style>
+<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+
+<title>SliceCrafter</title>
+<meta name="description" content="">
+<link rel="icon" type="image/png" href="./logo-cropped1.png">
+<meta name="theme-color" content="#ffffff">
+
+<!-- CSS -->
+<link rel="stylesheet" href="./main.css">
+<noscript><link rel="stylesheet" href="https://icesl.loria.fr/assets/css/noscript.css" /></noscript>
+
+	</head>
+	<body class="">
+
+		<!-- Wrapper -->
+			<div id="wrapper" class="fade-in">
+
+				<!-- Header -->
+        <header id="header">
+<!--
+						<a href="https://icesl.loria.fr/" class="logo">IceSL</a>
+-->
+						<a href="https://icesl.loria.fr/" class="logo" style="border-style:none"><img height="50px" src="./name-cropped2.png"></a>
+        </header>
+
+				<!-- Nav -->
+					<nav id="nav">
+
+            
+
+
+						
+					<ul class="links">
+  <li><a href="https://icesl.loria.fr/#header">Home</a></li>
+  
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+     <li><a href="https://icesl.loria.fr/features/">Features</a></li>
+    
+  
+    
+  
+    
+  
+    
+  
+    
+     <li><a href="https://icesl.loria.fr/download/">Download</a></li>
+    
+  
+    
+  
+    
+  
+    
+  
+    
+     <li><a href="https://icesl.loria.fr/slicecrafter/">SliceCrafter</a></li>
+    
+  
+    
+  
+    
+  
+    
+     <li><a href="https://icesl.loria.fr/webprinter/">WebPrinter</a></li>
+    
+  
+    
+  
+    
+     <li><a href="https://icesl.loria.fr/documentation/">Documentation</a></li>
+    
+  
+    
+  
+    
+     <li><a href="https://icesl.loria.fr/about/">About</a></li>
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+</ul><ul class="icons">
+              <li><a href="https://twitter.com/iceslapp" class="icon fa-twitter" rel="nofollow"><span class="label">Twitter</span></a></li>
+              <li><a href="https://groups.google.com/forum/#!forum/icesl" class="icon fa-google" rel="nofollow"><span class="label">Google</span></a></li>
+              <li><a href="https://github.com/shapeforge" class="icon fa-github" rel="nofollow"><span class="label">GitHub</span></a></li>
+						</ul></nav>
+
+				<!-- Main -->
+				<div id="main">
+          <section class="post">
+    				<header class="major">
+<!--
+            <img class="smallest" src="https://icesl.loria.fr/assets/img/logo-cropped1.png"/>
+-->
+      				<h1>SliceCrafter</h1>
+      				<p></p>
+      			</header>
+      			<p>
+<script type="text/javascript" async="" src="./analytics.js.download"></script><script type="text/javascript" async="" src="./js"></script><script type="text/javascript" async="" src="./analytics.js.download"></script><script src="./jquery-3.3.1.min.js.download" charset="utf-8"></script>
+
+<script src="./bootstrap.js.download" charset="utf-8"></script>
+
+<script src="./fileselect.js.download" charset="utf-8"></script>
+
+<style>
+  body {
+    font-family: arial;
+    margin: 0;
+    padding: none;
+    background-color: #ffffff;
+  }
+
+  .emscripten { position: relative; left: -7.5%; padding-right: 0; margin-left: auto; margin-right: auto; display: block; }
+   div.emscripten { text-align: center; }
+   div.emscripten_border { border: 1px solid black; }
+   /* the canvas *must not* have any border or padding, or mouse coords will be wrong */
+   canvas.emscripten { border: 0px none; }
+
+  ul {
+    margin-top: 15px;
+    margin-bottom: 0px;
+    padding-top: 0px;
+    padding-bottom: 0px;
+  }
+
+  ul li {
+    margin-top: -15px;
+    margin-bottom: 0px;
+    padding-top: 0px;
+    padding-bottom: 0px;
+  }
+
+  #warning {
+    position: relative;
+    top:    -20px;
+    height: 0px;
+    margin-top: -16px;
+  }
+
+</style>
+
+<!--
+<label for="name">Enter url of STL:</label>
+<input style="width: 100%" type="text" name="url" id="url" value="http://">
+<a style="float: right;" class="button small" id="createLink" onclick="createLink()">Create link</a><br>
+<a style="float: right;" id="link"></a>
+-->
+
+</p><p><a class="button big button-half" id="fileSelect">Load STL</a>
+<input type="file" id="fileElem" accept=".stl" style="display:none;" onchange="handleSTLFile(this.files[0])">
+<a class="button big button-half" id="fileSelect2">Load settings</a>
+<input type="file" id="fileElem2" accept=".lua,.xml" style="display:none;" onchange="handleSettingsFile(this.files[0])"></p>
+
+<script>
+initialize();
+</script>
+
+<script>
+  function createLink()
+  {
+    var url = document.getElementsByName('url')[0].value;
+    var mod = url;
+    if (url.match('www.dropbox.com')) {
+      mod = url.replace('www.dropbox.com','dl.dropboxusercontent.com');
+      mod = mod.replace('?dl=0','?dl=1');
+    }
+    var lnk = 'http://icesl.loria.fr/slicecrafter/index.html?url=' + encodeURIComponent(mod);
+    var a = document.getElementById('link');
+    a.innerHTML=lnk;
+    a.href=lnk;
+  }
+</script>
+
+
+
+<canvas class="emscripten" id="canvas" tabindex="1" oncontextmenu="event.preventDefault()" width="1374" height="1024"></canvas>
+
+<script type="text/javascript">
+  var Module = {
+    preRun: [],
+    postRun: [],
+    print: function(text) {
+      console.error(text);
+    },
+    printErr: function(text) {
+      if (arguments.length > 1) text = Array.prototype.slice.call(arguments).join(' ');
+      console.error(text);
+    },
+    canvas: (function() {
+      var canvas = document.getElementById('canvas');
+
+      // As a default initial behavior, pop up an alert when webgl context is lost. To make your
+      // application robust, you may want to override this behavior before shipping!
+      // See http://www.khronos.org/registry/webgl/specs/latest/1.0/#5.15.2
+      canvas.addEventListener("webglcontextlost", function(e) { alert('WebGL context lost. You will need to reload the page.'); e.preventDefault(); }, false);
+
+      return canvas;
+    })(),
+    setStatus: function(text) {
+      if (!Module.setStatus.last) Module.setStatus.last = { time: Date.now(), text: '' };
+      if (text === Module.setStatus.text) return;
+      var m = text.match(/([^(]+)\((\d+(\.\d+)?)\/(\d+)\)/);
+      var now = Date.now();
+      if (m && now - Date.now() < 30) return; // if this is a progress update, skip it if too soon
+      if (m) {
+        text = m[1];
+      } else {
+      }
+    },
+    totalDependencies: 0,
+    monitorRunDependencies: function(left) {
+      this.totalDependencies = Math.max(this.totalDependencies, left);
+      Module.setStatus(left ? 'Preparing... (' + (this.totalDependencies-left) + '/' + this.totalDependencies + ')' : 'All downloads complete.');
+    }
+  };
+  
+  Module.setStatus('Downloading...');
+  
+  window.onerror = function(event) {
+    // TODO: do not warn on ok events like simulating an infinite loop or exitStatus
+    Module.setStatus('Exception thrown, see JavaScript console');
+    Module.setStatus = function(text) {
+      if (text) Module.printErr('[post-exception status] ' + text);
+    };
+  };
+
+  var loadingText = document.getElementById("loading-text")
+  var loadingProgress = document.getElementById("loading-progress") 
+  var xhr = new XMLHttpRequest()
+  xhr.open('GET', "IceSL-slicer.wasm", true)
+  xhr.responseType = 'arraybuffer'
+  xhr.onprogress = function(event)
+  {
+    var progress = Math.round(event.loaded / event.total * 100)
+    loadingProgress.value = progress
+    //loadingText.innerHTML = "<i> Loading Slicecrafter... [" + progress + "%]</i>"
+  }
+  xhr.onload = function()
+  {
+    Module.wasmBinary = xhr.response
+    var script = document.createElement('script')
+    script.src = "IceSL-slicer.js"
+    script.onload = function()
+    {
+    console.log("Emscripten boilerplate loaded.")
+    }
+    loadingText.parentNode.removeChild(loadingText)
+    document.body.appendChild(script)
+  }
+  xhr.send(null)
+</script>
+
+<script async="" type="text/javascript" src="./files.js.download"></script>
+
+<script>
+  function parseCommandLine()
+  {
+    /// get 'command line' parameters      
+    // http://stackoverflow.com/questions/979975/how-to-get-the-value-from-the-get-parameters
+    var QueryString = function () {
+    var query_string = {};
+    var query = window.location.search.substring(1);
+    var vars = query.split("&");
+    for (var i=0;i<vars.length;i++) {
+      var pair = vars[i].split("=");
+          // If first entry with this name
+      if (typeof query_string[pair[0]] === "undefined") {
+        query_string[pair[0]] = decodeURIComponent(pair[1]);
+          // If second entry with this name
+      } else if (typeof query_string[pair[0]] === "string") {
+        var arr = [ query_string[pair[0]],decodeURIComponent(pair[1]) ];
+        query_string[pair[0]] = arr;
+          // If third or later entry with this name
+      } else {
+        query_string[pair[0]].push(decodeURIComponent(pair[1]));
+      }
+    } 
+    return query_string;
+    }();
+    
+    /// Download file if given
+    if (typeof QueryString.url !== 'undefined') {
+      // download file
+      var xhr = new XMLHttpRequest();
+      xhr.open("GET", QueryString.url);
+      xhr.responseType = "arraybuffer";
+      xhr.overrideMimeType("application/octet-stream");
+      Module.beginDownload();
+      xhr.onprogress = function(evt) {
+        if (evt.lengthComputable) {
+          var percent = evt.loaded / evt.total;
+          Module.setDownloadProgress(percent);
+        }         
+      };
+      xhr.onload = function () {
+        if (this.status === 200) {
+          FS.writeFile('/loaded.stl', new Uint8Array(xhr.response), { encoding: "binary" });
+          Module.endDownload();
+        }
+      };
+      xhr.send();
+    }
+  }
+</script>
+
+<script src="./Blob.js.download"> </script>
+
+<script src="./FileSaver.js.download"> </script>
+
+<script>
+  function saveFileFromMemoryFSToDisk(name) {
+   var data=FS.readFile(name);
+   var blob;
+   var isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
+   if(isSafari) {
+      blob = new Blob([data.buffer], {type: "application/octet-stream"});
+   } else {
+      blob = new Blob([data.buffer], {type: "application/octet-binary"});
+   }
+   saveAs(blob, name);
+  }
+
+  Module['locateFile'] = function(path, prefix) {
+  return "" + path;
+  }
+</script>
+
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async="" src="./js(1)"></script>
+
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-80490047-1');
+</script>
+
+<p></p>
+            <center><img class="smallest" src="./logo-cropped1.png"></center>
+      		</section>
+
+				</div>
+
+				<!-- Footer -->
+        <!--
+<footer id="footer">
+  <section>
+    <form method="POST" action="https://formspree.io/sylvain.lefebvre@inria.fr">
+      <div class="field">
+        <label for="name">Name</label>
+        <input type="text" name="name" id="name" />
+      </div>
+      <div class="field">
+        <label for="email">Email</label>
+        <input type="text" name="email" id="email" />
+      </div>
+      <div class="field">
+        <label for="message">Message</label>
+        <textarea name="message" id="message" rows="3"></textarea>
+      </div>
+      <ul class="actions">
+        <li><input type="submit" value="Send Message" /></li>
+      </ul>
+    </form>
+  </section>
+  <section class="split contact">
+    <section class="alt">
+      <h3>Location</h3>
+      <p>Nancy, France</p>
+    </section>
+    <section>
+      <h3>Phone</h3>
+      <p><a href="tel:"></a></p>
+    </section>
+    <section>
+      <h3>Email</h3>
+      <p><a href="mailto:sylvain.lefebvre@inria.fr">sylvain.lefebvre@inria.fr</a></p>
+    </section>
+    <section>
+      <h3>Social</h3>
+      <ul class="icons alt">
+        <li><a href="https://twitter.com/iceslapp" class="icon fa-twitter" rel="nofollow"><span class="label">Twitter</span></a></li>
+        <li><a href="https://facebook.com/" class="icon fa-facebook" rel="nofollow"><span class="label">Facebook</span></a></li>
+        <li><a href="https://instagram.com/" class="icon fa-instagram" rel="nofollow"><span class="label">Instagram</span></a></li>
+        <li><a href="https://github.com/shapeforge" class="icon fa-github" rel="nofollow"><span class="label">GitHub</span></a></li>
+      </ul>
+    </section>
+  </section>
+</footer>
+-->
+<!-- Copyright -->
+<div id="copyright">
+  <ul><li>© HTML5 UP</li><li>Design by <a href="https://html5up.net/" rel="nofollow">HTML5 UP</a></li><li>Website by <a href="https://members.loria.fr/sperchy/">Salim Perchy</a></li><li>Jekyll Integration by <a href="https://soundgrail.com/">SoundGrail</a></li></ul>
+</div>
+
+
+			<div class="bg fixed" style="transform: none;"></div><a href="https://icesl.loria.fr/slicecrafter/#navPanel" id="navPanelToggle" class="">Menu</a></div>
+
+      <!-- Scripts -->
+  		<!-- DYN -->
+<script src="./jquery.min.js(2).download"></script>
+<script src="./jquery.scrollex.min.js.download"></script>
+<script src="./jquery.scrolly.min.js.download"></script>
+<script src="./skel.min.js.download"></script>
+<script src="./util.js.download"></script>
+<script src="./main.js.download"></script>
+
+			<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async="" src="./js(2)"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-80490047-3');
+</script>
+
+
+	
+
+<div id="navPanel"><nav></nav><a href="https://icesl.loria.fr/slicecrafter/#navPanel" class="close" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"></a></div><script src="./IceSL-slicer.js.download"></script></body><editor-card style="position:absolute;top:0px;left:0px;z-index:auto;display: block !important"><div dir="ltr" style="all: initial;"><div style="color: initial; font: initial; font-palette: initial; font-synthesis: initial; forced-color-adjust: initial; text-orientation: initial; text-rendering: initial; -webkit-font-smoothing: initial; -webkit-locale: initial; -webkit-text-orientation: initial; -webkit-writing-mode: initial; writing-mode: initial; zoom: initial; accent-color: initial; place-content: initial; place-items: initial; place-self: initial; alignment-baseline: initial; animation-composition: initial; animation: initial; app-region: initial; appearance: initial; aspect-ratio: initial; backdrop-filter: initial; backface-visibility: initial; background: initial; background-blend-mode: initial; baseline-shift: initial; baseline-source: initial; block-size: initial; border-block: initial; border: initial; border-radius: initial; border-collapse: initial; border-end-end-radius: initial; border-end-start-radius: initial; border-inline: initial; border-start-end-radius: initial; border-start-start-radius: initial; inset: initial; box-shadow: initial; box-sizing: initial; break-after: initial; break-before: initial; break-inside: initial; buffered-rendering: initial; caption-side: initial; caret-color: initial; clear: initial; clip: initial; clip-path: initial; clip-rule: initial; color-interpolation: initial; color-interpolation-filters: initial; color-rendering: initial; color-scheme: initial; columns: initial; column-fill: initial; gap: initial; column-rule: initial; column-span: initial; contain: initial; contain-intrinsic-block-size: initial; contain-intrinsic-size: initial; contain-intrinsic-inline-size: initial; container: initial; content: initial; content-visibility: initial; counter-increment: initial; counter-reset: initial; counter-set: initial; cursor: initial; cx: initial; cy: initial; d: initial; display: initial; dominant-baseline: initial; empty-cells: initial; fill: initial; fill-opacity: initial; fill-rule: initial; filter: initial; flex: initial; flex-flow: initial; float: initial; flood-color: initial; flood-opacity: initial; grid: initial; grid-area: initial; height: initial; hyphenate-character: initial; hyphenate-limit-chars: initial; hyphens: initial; image-orientation: initial; image-rendering: initial; initial-letter: initial; inline-size: initial; inset-block: initial; inset-inline: initial; isolation: initial; letter-spacing: initial; lighting-color: initial; line-break: initial; list-style: initial; margin-block: initial; margin: initial; margin-inline: initial; marker: initial; mask: initial; mask-type: initial; math-depth: initial; math-shift: initial; math-style: initial; max-block-size: initial; max-height: initial; max-inline-size: initial; max-width: initial; min-block-size: initial; min-height: initial; min-inline-size: initial; min-width: initial; mix-blend-mode: initial; object-fit: initial; object-position: initial; object-view-box: initial; offset: initial; opacity: initial; order: initial; orphans: initial; outline: initial; outline-offset: initial; overflow-anchor: initial; overflow-clip-margin: initial; overflow-wrap: initial; overflow: initial; overscroll-behavior-block: initial; overscroll-behavior-inline: initial; overscroll-behavior: initial; padding-block: initial; padding: initial; padding-inline: initial; page: initial; page-orientation: initial; paint-order: initial; perspective: initial; perspective-origin: initial; pointer-events: initial; position: absolute; quotes: initial; r: initial; resize: initial; rotate: initial; ruby-position: initial; rx: initial; ry: initial; scale: initial; scroll-behavior: initial; scroll-margin-block: initial; scroll-margin: initial; scroll-margin-inline: initial; scroll-padding-block: initial; scroll-padding: initial; scroll-padding-inline: initial; scroll-snap-align: initial; scroll-snap-stop: initial; scroll-snap-type: initial; scrollbar-gutter: initial; shape-image-threshold: initial; shape-margin: initial; shape-outside: initial; shape-rendering: initial; size: initial; speak: initial; stop-color: initial; stop-opacity: initial; stroke: initial; stroke-dasharray: initial; stroke-dashoffset: initial; stroke-linecap: initial; stroke-linejoin: initial; stroke-miterlimit: initial; stroke-opacity: initial; stroke-width: initial; tab-size: initial; table-layout: initial; text-align: initial; text-align-last: initial; text-anchor: initial; text-combine-upright: initial; text-decoration: initial; text-decoration-skip-ink: initial; text-emphasis: initial; text-emphasis-position: initial; text-indent: initial; text-overflow: initial; text-shadow: initial; text-size-adjust: initial; text-transform: initial; text-underline-offset: initial; text-underline-position: initial; touch-action: initial; transform: initial; transform-box: initial; transform-origin: initial; transform-style: initial; transition: initial; translate: initial; user-select: initial; vector-effect: initial; vertical-align: initial; view-transition-name: initial; visibility: initial; border-spacing: initial; -webkit-box-align: initial; -webkit-box-decoration-break: initial; -webkit-box-direction: initial; -webkit-box-flex: initial; -webkit-box-ordinal-group: initial; -webkit-box-orient: initial; -webkit-box-pack: initial; -webkit-box-reflect: initial; -webkit-highlight: initial; -webkit-line-break: initial; -webkit-line-clamp: initial; -webkit-mask-box-image: initial; -webkit-mask: initial; -webkit-mask-composite: initial; -webkit-print-color-adjust: initial; -webkit-rtl-ordering: initial; -webkit-ruby-position: initial; -webkit-tap-highlight-color: initial; -webkit-text-combine: initial; -webkit-text-decorations-in-effect: initial; -webkit-text-fill-color: initial; -webkit-text-security: initial; -webkit-text-stroke: initial; -webkit-user-drag: initial; -webkit-user-modify: initial; white-space: initial; widows: initial; width: initial; will-change: initial; word-break: initial; word-spacing: initial; x: initial; y: initial; z-index: 2147483647;"><link rel="stylesheet" href="chrome-extension://hokifickgkhplphjiodbggjmoafhignh/fonts/fabric-icons.css"></div><div style="color: initial; font: initial; font-palette: initial; font-synthesis: initial; forced-color-adjust: initial; text-orientation: initial; text-rendering: initial; -webkit-font-smoothing: initial; -webkit-locale: initial; -webkit-text-orientation: initial; -webkit-writing-mode: initial; writing-mode: initial; zoom: initial; accent-color: initial; place-content: initial; place-items: initial; place-self: initial; alignment-baseline: initial; animation-composition: initial; animation: initial; app-region: initial; appearance: initial; aspect-ratio: initial; backdrop-filter: initial; backface-visibility: initial; background: initial; background-blend-mode: initial; baseline-shift: initial; baseline-source: initial; block-size: initial; border-block: initial; border: initial; border-radius: initial; border-collapse: initial; border-end-end-radius: initial; border-end-start-radius: initial; border-inline: initial; border-start-end-radius: initial; border-start-start-radius: initial; inset: initial; box-shadow: initial; box-sizing: initial; break-after: initial; break-before: initial; break-inside: initial; buffered-rendering: initial; caption-side: initial; caret-color: initial; clear: initial; clip: initial; clip-path: initial; clip-rule: initial; color-interpolation: initial; color-interpolation-filters: initial; color-rendering: initial; color-scheme: initial; columns: initial; column-fill: initial; gap: initial; column-rule: initial; column-span: initial; contain: initial; contain-intrinsic-block-size: initial; contain-intrinsic-size: initial; contain-intrinsic-inline-size: initial; container: initial; content: initial; content-visibility: initial; counter-increment: initial; counter-reset: initial; counter-set: initial; cursor: initial; cx: initial; cy: initial; d: initial; display: initial; dominant-baseline: initial; empty-cells: initial; fill: initial; fill-opacity: initial; fill-rule: initial; filter: initial; flex: initial; flex-flow: initial; float: initial; flood-color: initial; flood-opacity: initial; grid: initial; grid-area: initial; height: initial; hyphenate-character: initial; hyphenate-limit-chars: initial; hyphens: initial; image-orientation: initial; image-rendering: initial; initial-letter: initial; inline-size: initial; inset-block: initial; inset-inline: initial; isolation: initial; letter-spacing: initial; lighting-color: initial; line-break: initial; list-style: initial; margin-block: initial; margin: initial; margin-inline: initial; marker: initial; mask: initial; mask-type: initial; math-depth: initial; math-shift: initial; math-style: initial; max-block-size: initial; max-height: initial; max-inline-size: initial; max-width: initial; min-block-size: initial; min-height: initial; min-inline-size: initial; min-width: initial; mix-blend-mode: initial; object-fit: initial; object-position: initial; object-view-box: initial; offset: initial; opacity: initial; order: initial; orphans: initial; outline: initial; outline-offset: initial; overflow-anchor: initial; overflow-clip-margin: initial; overflow-wrap: initial; overflow: initial; overscroll-behavior-block: initial; overscroll-behavior-inline: initial; overscroll-behavior: initial; padding-block: initial; padding: initial; padding-inline: initial; page: initial; page-orientation: initial; paint-order: initial; perspective: initial; perspective-origin: initial; pointer-events: initial; position: absolute; quotes: initial; r: initial; resize: initial; rotate: initial; ruby-position: initial; rx: initial; ry: initial; scale: initial; scroll-behavior: initial; scroll-margin-block: initial; scroll-margin: initial; scroll-margin-inline: initial; scroll-padding-block: initial; scroll-padding: initial; scroll-padding-inline: initial; scroll-snap-align: initial; scroll-snap-stop: initial; scroll-snap-type: initial; scrollbar-gutter: initial; shape-image-threshold: initial; shape-margin: initial; shape-outside: initial; shape-rendering: initial; size: initial; speak: initial; stop-color: initial; stop-opacity: initial; stroke: initial; stroke-dasharray: initial; stroke-dashoffset: initial; stroke-linecap: initial; stroke-linejoin: initial; stroke-miterlimit: initial; stroke-opacity: initial; stroke-width: initial; tab-size: initial; table-layout: initial; text-align: initial; text-align-last: initial; text-anchor: initial; text-combine-upright: initial; text-decoration: initial; text-decoration-skip-ink: initial; text-emphasis: initial; text-emphasis-position: initial; text-indent: initial; text-overflow: initial; text-shadow: initial; text-size-adjust: initial; text-transform: initial; text-underline-offset: initial; text-underline-position: initial; touch-action: initial; transform: initial; transform-box: initial; transform-origin: initial; transform-style: initial; transition: initial; translate: initial; user-select: initial; vector-effect: initial; vertical-align: initial; view-transition-name: initial; visibility: initial; border-spacing: initial; -webkit-box-align: initial; -webkit-box-decoration-break: initial; -webkit-box-direction: initial; -webkit-box-flex: initial; -webkit-box-ordinal-group: initial; -webkit-box-orient: initial; -webkit-box-pack: initial; -webkit-box-reflect: initial; -webkit-highlight: initial; -webkit-line-break: initial; -webkit-line-clamp: initial; -webkit-mask-box-image: initial; -webkit-mask: initial; -webkit-mask-composite: initial; -webkit-print-color-adjust: initial; -webkit-rtl-ordering: initial; -webkit-ruby-position: initial; -webkit-tap-highlight-color: initial; -webkit-text-combine: initial; -webkit-text-decorations-in-effect: initial; -webkit-text-fill-color: initial; -webkit-text-security: initial; -webkit-text-stroke: initial; -webkit-user-drag: initial; -webkit-user-modify: initial; white-space: initial; widows: initial; width: initial; will-change: initial; word-break: initial; word-spacing: initial; x: initial; y: initial; z-index: 2147483647;"><link rel="stylesheet" href="chrome-extension://hokifickgkhplphjiodbggjmoafhignh/fonts/fabric-icons.css"><div style="all: initial;"><template shadowrootmode="open"></template></div></div></div></editor-card></html>
